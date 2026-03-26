@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Frax Finance — FRAX Stablecoin, frxETH, FXS Token, Staking &amp; Protocol Guide (2026)</title>
+  <meta name="description" content="Complete Frax Finance guide (2026): how the FRAX fractional-algorithmic stablecoin works, frxETH liquid staking, sfrxETH yield, FXS governance token, Fraxlend, Fraxswap, veFXS staking, collateral ratio, and security risks. Deep FAQ included.">
+  <meta name="author" content="Crypto Finance Experts">
+  <link rel="canonical" href="https://frax-finance-guide.example.com/">
+  <link rel="icon" type="image/png" href="frax.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://frax-finance-guide.example.com/">
+  <meta property="og:title" content="Frax Finance — FRAX, frxETH, FXS Token &amp; Protocol Guide (2026)">
+  <meta property="og:description" content="Practical Frax Finance guide: FRAX stablecoin mechanics, frxETH liquid staking, sfrxETH yield, FXS tokenomics, veFXS, Fraxlend, Fraxswap, and risks.">
+  <meta property="og:image" content="cover.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Frax Finance — FRAX, frxETH &amp; FXS Guide (2026)">
+  <meta name="twitter:description" content="How Frax Finance works: FRAX stablecoin, frxETH liquid staking, sfrxETH, FXS, veFXS staking, Fraxlend, and Fraxswap explained.">
+
+  <style>
+    :root {
+      --p:    #C084FC;   /* purple-400 */
+      --p2:   #A855F7;   /* purple-500 */
+      --p3:   #9333EA;   /* purple-600 */
+      --pa:   #E879F9;   /* fuchsia-400 accent */
+
+      --ink:   #FAF5FF;
+      --sub:   #E9D5FF;
+      --muted: #94A3B8;
+      --dim:   #64748B;
+
+      --bg:    #07060E;
+      --card:  rgba(255,255,255,.028);
+      --line:  rgba(255,255,255,.07);
+      --line-p:rgba(192,132,252,.11);
+
+      --ok:   #34D399;
+      --warn: #FBBF24;
+      --err:  #F87171;
+
+      --r:  12px;
+      --rl: 18px;
+      --gap: 1.2rem;
+      --sh: 0 8px 28px rgba(0,0,0,.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    html { scroll-behavior: smooth }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 800px 420px at 0%   0%,  rgba(147,51,234,.09), transparent 55%),
+        radial-gradient(ellipse 600px 340px at 100% 10%, rgba(232,121,249,.05), transparent 50%),
+        radial-gradient(ellipse 500px 300px at 50%  98%, rgba(168,85,247,.05),  transparent 55%);
+      color: var(--muted);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: var(--p); text-decoration: none }
+    a:hover { text-decoration: underline }
+    img { max-width: 100%; height: auto; display: block }
+    strong { color: #F3E8FF; font-weight: 600 }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.4rem }
+
+    h1,h2,h3,h4 { color: var(--ink); line-height: 1.25 }
+    h1 { font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; letter-spacing: -.4px }
+    h2 { font-size: clamp(1.25rem,2.5vw,1.75rem); font-weight: 700; margin-top: 1.8rem; padding-top: .7rem; border-top: 1px solid var(--line) }
+    h3 { font-size: 1.08rem; font-weight: 700; color: var(--sub) }
+    p,li,td,th { font-size: 1rem; line-height: 1.75 }
+    .lead { font-size: 1.08rem; color: #CBD5E1 }
+
+    /* HERO */
+    header.hero {
+      padding: clamp(2.5rem,6vw,5rem) 0 clamp(2rem,4vw,3.5rem);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-card {
+      background: var(--card); border: 1px solid var(--line-p);
+      border-radius: var(--rl); padding: clamp(1.4rem,3.5vw,2.2rem); box-shadow: var(--sh);
+    }
+    .brand-row { display: flex; align-items: center; gap: .9rem; margin-bottom: 1rem }
+    .brand-logo {
+      width: 54px; height: 54px; border-radius: 13px;
+      border: 1px solid rgba(192,132,252,.20); background: rgba(147,51,234,.07);
+      padding: .3rem; object-fit: contain;
+      box-shadow: 0 6px 18px rgba(0,0,0,.40); flex: 0 0 auto;
+    }
+    .brand-label { color: var(--dim); font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4px }
+    .brand-sub   { color: var(--muted); font-size: .85rem }
+
+    /* CTA */
+    .cta-center { display: flex; justify-content: center; margin-top: 1.6rem }
+    .cta {
+      display: inline-flex; align-items: center; gap: .55rem;
+      background: linear-gradient(135deg, #C084FC, #A855F7 50%, #9333EA);
+      color: #1a0a2e; padding: 1.1rem 2.5rem;
+      border-radius: 13px; font-weight: 800; font-size: 1.05rem;
+      box-shadow: 0 0 0 1px rgba(192,132,252,.22), 0 6px 20px rgba(168,85,247,.22), 0 20px 44px rgba(147,51,234,.18);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: transform .16s, box-shadow .16s, filter .16s;
+    }
+    .cta:hover {
+      transform: translateY(-3px) scale(1.02); filter: brightness(1.07);
+      text-decoration: none; color: #1a0a2e;
+      box-shadow: 0 0 0 1px rgba(192,132,252,.35), 0 10px 26px rgba(168,85,247,.30), 0 26px 52px rgba(147,51,234,.24);
+    }
+
+    /* NOTE */
+    .note {
+      border-left: 3px solid var(--p2); padding: .8rem 1rem;
+      background: rgba(147,51,234,.07); border-radius: 0 9px 9px 0;
+      color: #F3E8FF; margin-top: 1rem;
+    }
+
+    /* STEPS */
+    section.step-guide { padding: clamp(2rem,5vw,3.5rem) 0 }
+    .steps { display: grid; gap: var(--gap); grid-template-columns: 1fr }
+    .step {
+      background: var(--card); border: 1px solid var(--line);
+      border-top: 2px solid rgba(192,132,252,.22); border-radius: var(--r);
+      padding: 1.25rem; box-shadow: var(--sh); transition: transform .18s;
+    }
+    .step:hover { transform: translateY(-3px) }
+    .step .icon {
+      width: 44px; height: 44px; border-radius: 9px;
+      display: inline-grid; place-items: center;
+      background: rgba(147,51,234,.10); margin-bottom: .65rem;
+      font-weight: 800; font-size: .95rem; color: var(--p);
+      border: 1px solid rgba(192,132,252,.18);
+    }
+
+    /* CARD */
+    main .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 1.4rem; margin: 1.2rem 0; box-shadow: var(--sh);
+    }
+    main .card > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* TOC */
+    .toc { border: 1px solid var(--line-p); background: rgba(147,51,234,.05); border-radius: var(--r); padding: 1.1rem 1.3rem }
+    .toc strong { color: var(--ink) }
+    .toc ul { margin: .5rem 0 0; padding-left: 1.1rem }
+    .toc li { margin: .28rem 0; font-size: .96rem }
+    .toc a { font-weight: 600 }
+
+    /* GRID */
+    .grid-2 { display: grid; gap: var(--gap); grid-template-columns: 1fr }
+    .callout-grid { display: grid; gap: var(--gap); grid-template-columns: 1fr; margin-top: .8rem }
+    .mini {
+      background: rgba(255,255,255,.02); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 1rem;
+    }
+    .mini h3 { margin-bottom: .35rem }
+    .kpi-badges { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .55rem }
+    .kpi-badges span {
+      border: 1px solid rgba(192,132,252,.18); background: rgba(147,51,234,.07);
+      color: var(--sub); padding: .26rem .54rem; border-radius: 999px; font-size: .87rem; font-weight: 600;
+    }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; border-radius: var(--r); border: 1px solid var(--line) }
+    table { width: 100%; border-collapse: collapse; min-width: 480px }
+    th,td { padding: .8rem .95rem; border-bottom: 1px solid var(--line); text-align: left }
+    th { background: rgba(147,51,234,.06); color: var(--ink); font-weight: 700; font-size: .93rem }
+    tr.hi { background: rgba(147,51,234,.04) }
+    tr:hover td { background: rgba(255,255,255,.018) }
+    tr:last-child td { border-bottom: none }
+    .ok { color: var(--ok) } .warn { color: var(--warn) } .err { color: var(--err) }
+
+    /* EEAT */
+    .eeat {
+      background: var(--card); border: 1px solid var(--line-p);
+      border-radius: var(--r); padding: 1.4rem; box-shadow: var(--sh);
+    }
+    .eeat > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--line); padding: .9rem 0 }
+    .faq-item:last-child { border-bottom: none }
+    .faq-button {
+      all: unset; display: flex; justify-content: space-between; align-items: flex-start;
+      width: 100%; cursor: pointer; gap: 1rem;
+    }
+    .faq-button:focus-visible { outline: 2px solid var(--p); border-radius: 4px }
+    .faq-button h3 { margin: 0; font-weight: 700; font-size: 1rem; line-height: 1.4 }
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height .26s ease }
+    .faq-content.open { padding-top: .65rem }
+    .faq-plus { font-weight: 800; font-size: 1.35rem; color: var(--p); flex: 0 0 auto; line-height: 1; transition: transform .2s }
+    .faq-button[aria-expanded="true"] .faq-plus { transform: rotate(45deg) }
+
+    @media(min-width:860px){
+      .steps { grid-template-columns: repeat(4,1fr) }
+      .grid-2 { grid-template-columns: 1fr 1fr }
+      .callout-grid { grid-template-columns: 1fr 1fr }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="container">
+    <div class="hero-card">
+      <div class="brand-row">
+        <img class="brand-logo" src="frax.png" alt="Frax Finance logo">
+        <div>
+          <div class="brand-label">Complete Protocol Guide</div>
+          <div class="brand-sub">FRAX Stablecoin · frxETH · sfrxETH · FXS · veFXS · Fraxlend · Fraxswap</div>
+        </div>
+      </div>
+
+      <h1>Frax Finance</h1>
+      <p class="lead" style="margin-top:.7rem">
+        The complete guide to <strong>Frax Finance</strong> — one of DeFi's most complex and innovative protocol suites.
+        Understand how the <strong>FRAX fractional-algorithmic stablecoin</strong> maintains its peg,
+        how <strong>frxETH and sfrxETH</strong> deliver some of the highest ETH staking yields in liquid staking,
+        what the <strong>FXS governance token</strong> and <strong>veFXS vote-escrow model</strong> unlock,
+        how <strong>Fraxlend</strong> and <strong>Fraxswap</strong> extend the ecosystem,
+        and what <strong>smart-contract and depeg risks</strong> look like in practice.
+      </p>
+
+      <div class="cta-center">
+        <a href="#" class="cta" aria-label="Open Frax Finance App">
+          <span>⬡</span> Open Frax Finance
+        </a>
+      </div>
+
+      <div class="note">
+        <strong>Protocol complexity warning:</strong> Frax Finance is one of the most technically intricate
+        DeFi protocols. Before committing capital, take time to understand how FRAX's collateral ratio,
+        the AMO system, and sfrxETH yield mechanics actually work — not just the headline APY.
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STEPS -->
+<section class="step-guide" aria-labelledby="how-works">
+  <div class="container">
+    <h2 id="how-works" style="margin-top:0;border-top:none;padding-top:0">
+      Frax Finance at a Glance: Four Core Products, One Ecosystem
+    </h2>
+    <div class="steps" role="list">
+      <article class="step" role="listitem">
+        <div class="icon">01</div>
+        <h3>FRAX — fractional stablecoin</h3>
+        <p>FRAX is a USD-pegged stablecoin backed by a mix of collateral (USDC) and the FXS governance token. The collateral ratio adjusts algorithmically based on market conditions to maintain the peg efficiently.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">02</div>
+        <h3>frxETH &amp; sfrxETH — liquid ETH staking</h3>
+        <p>frxETH is Frax's liquid staking token for ETH. Staking frxETH into sfrxETH earns concentrated staking rewards — because non-staked frxETH provides liquidity, sfrxETH captures a larger yield share.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">03</div>
+        <h3>FXS &amp; veFXS — governance &amp; yield</h3>
+        <p>FXS is the governance and value-accrual token. Lock FXS for veFXS to earn protocol revenue, boost liquidity mining rewards, and vote on gauge emissions — the vote-escrow model Frax pioneered alongside Curve.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">04</div>
+        <h3>Fraxlend &amp; Fraxswap — DeFi primitives</h3>
+        <p>Fraxlend is an isolated lending market where anyone can create a FRAX lending pair. Fraxswap is a native TWAMM DEX built for time-weighted large order execution. Both extend FRAX utility across DeFi.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container" role="main">
+
+  <!-- TOC -->
+  <section class="card toc" aria-label="Table of Contents">
+    <strong>On this page — Frax Finance:</strong>
+    <ul>
+      <li><a href="#overview">What is Frax Finance and how does it fit in DeFi</a></li>
+      <li><a href="#frax-stablecoin">FRAX stablecoin: how the fractional-algorithmic model works</a></li>
+      <li><a href="#amo">AMO system: how Frax deploys collateral to generate yield</a></li>
+      <li><a href="#frxeth">frxETH and sfrxETH: ETH liquid staking and concentrated yield</a></li>
+      <li><a href="#fxs">FXS token: utility, tokenomics, and value accrual</a></li>
+      <li><a href="#vefxs">veFXS: vote-escrow staking, boosts, and gauge voting</a></li>
+      <li><a href="#fraxlend">Fraxlend: isolated lending markets explained</a></li>
+      <li><a href="#fraxswap">Fraxswap: TWAMM DEX and large order execution</a></li>
+      <li><a href="#safety">Frax Finance risks: depeg, smart-contract, and AMO risks</a></li>
+      <li><a href="#comparison">Frax vs MakerDAO vs Liquity vs Lido: key trade-offs</a></li>
+      <li><a href="#best-practices">Best practices for using Frax Finance safely</a></li>
+      <li><a href="#troubleshooting">Troubleshooting: depeg concerns, sfrxETH yield, veFXS issues</a></li>
+      <li><a href="#eeat">Authoritative sources &amp; references</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="card" id="overview">
+    <h2>What Is Frax Finance and How Does It Fit Into DeFi?</h2>
+    <p>
+      <strong>Frax Finance</strong> is a multi-product DeFi protocol founded by Sam Kazemian.
+      It began as the first <strong>fractional-algorithmic stablecoin</strong> — a hybrid model that maintains
+      the FRAX peg using both real collateral and an algorithmic component backed by FXS,
+      rather than being either fully collateralised (like DAI) or fully algorithmic (like the failed UST).
+    </p>
+    <p>
+      Over time Frax expanded into a full protocol suite: liquid ETH staking (frxETH/sfrxETH),
+      a lending protocol (Fraxlend), a native DEX (Fraxswap), and an advanced collateral management
+      system (AMOs). Each product reinforces FRAX demand, generates protocol revenue, and creates
+      additional utility for FXS holders.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>Why Frax matters</h3>
+        <p style="color:var(--muted)">Frax pioneered the fractional stablecoin model and the vote-escrow tokenomics design that dozens of protocols have since copied. It remains one of the most capital-efficient stablecoin systems in DeFi.</p>
+        <div class="kpi-badges"><span>Fractional-algo</span><span>AMO system</span><span>veFXS pioneer</span></div>
+      </div>
+      <div class="mini">
+        <h3>Who uses Frax</h3>
+        <p style="color:var(--muted)">DeFi power users seeking capital-efficient yield on ETH (sfrxETH), stablecoin yield via AMOs, FXS governance participation via veFXS, and developers integrating FRAX into DeFi protocols.</p>
+        <div class="kpi-badges"><span>ETH holders</span><span>Yield farmers</span><span>Governance voters</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAX STABLECOIN -->
+  <section class="card" id="frax-stablecoin">
+    <h2>FRAX Stablecoin: How the Fractional-Algorithmic Model Maintains the $1 Peg</h2>
+    <p>
+      FRAX is minted and redeemed at exactly $1, backed by a combination of collateral (primarily USDC)
+      and FXS. The ratio between the two components is determined by the <strong>Collateral Ratio (CR)</strong>,
+      which adjusts algorithmically based on market demand for FRAX.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="FRAX minting mechanics">
+        <thead>
+          <tr><th>Collateral Ratio</th><th>Minting 1 FRAX requires</th><th>Market signal</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>100% CR</td>
+            <td>$1.00 USDC only</td>
+            <td>High demand — protocol running conservatively</td>
+          </tr>
+          <tr>
+            <td>90% CR</td>
+            <td>$0.90 USDC + $0.10 worth of FXS</td>
+            <td>Moderate — some algorithmic component active</td>
+          </tr>
+          <tr class="hi">
+            <td>85% CR</td>
+            <td>$0.85 USDC + $0.15 worth of FXS</td>
+            <td>FXS demand strong — collateral ratio reduced further</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:1rem">
+      When FRAX trades above $1, the protocol lowers the CR (less collateral needed, more FXS burned — bullish for FXS).
+      When FRAX trades below $1, the CR rises (more collateral required to restore confidence in the peg).
+      This feedback loop is what "fractional-algorithmic" means in practice.
+    </p>
+
+    <div class="note">
+      <strong>v3 evolution:</strong> Frax has been progressively moving toward a 100% collateral ratio
+      via governance decisions, effectively making FRAX fully backed — a significant shift from its
+      original fractional design. Check the current CR in the official Frax app dashboard.
+    </div>
+  </section>
+
+  <!-- AMO -->
+  <section class="card" id="amo">
+    <h2>Frax AMO System: How the Protocol Deploys Collateral to Generate Yield</h2>
+    <p>
+      <strong>AMOs (Algorithmic Market Operations)</strong> are smart contracts that autonomously deploy
+      Frax's collateral reserves into yield-generating DeFi strategies — while maintaining strict
+      constraints that protect FRAX's peg. Think of AMOs as a decentralised central bank
+      deploying reserves, but with the constraint rules hard-coded in smart contracts.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>Curve AMO</h3>
+        <p style="color:var(--muted)">Deploys FRAX and collateral into Curve FRAX/3CRV pools, earning trading fees and CRV/CVX rewards. The protocol earns yield on its own stablecoin's liquidity.</p>
+        <div class="kpi-badges"><span>Curve pools</span><span>Fee revenue</span><span>CRV/CVX rewards</span></div>
+      </div>
+      <div class="mini">
+        <h3>Lending AMO</h3>
+        <p style="color:var(--muted)">Deploys FRAX collateral into lending protocols (Aave, Compound) to earn supply-side interest — turning idle reserves into a protocol revenue stream.</p>
+        <div class="kpi-badges"><span>Aave/Compound</span><span>Interest income</span><span>Passive yield</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>AMO safety constraint:</strong> AMOs are bounded — they can only deploy collateral up to an amount
+      that keeps FRAX fully redeemable at $1. If an AMO's strategy returns below peg conditions,
+      it must unwind. This makes AMOs fundamentally different from unconstrained yield strategies.
+    </div>
+  </section>
+
+  <!-- frxETH -->
+  <section class="card" id="frxeth">
+    <h2>frxETH and sfrxETH: How Frax's ETH Liquid Staking Delivers Concentrated Yield</h2>
+    <p>
+      Frax's ETH staking system uses a two-token model that separates liquidity from yield — allowing
+      sfrxETH holders to capture a larger share of staking rewards than comparable liquid staking tokens.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="frxETH vs sfrxETH">
+        <thead>
+          <tr><th></th><th>frxETH</th><th>sfrxETH</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>What it is</td>
+            <td>Liquid ETH staking receipt token (1:1 with ETH)</td>
+            <td>Yield-bearing vault share of staked frxETH</td>
+          </tr>
+          <tr>
+            <td>Earns staking yield?</td>
+            <td class="err">No — yield-neutral by design</td>
+            <td class="ok">Yes — concentrated yield from all validators</td>
+          </tr>
+          <tr class="hi">
+            <td>DeFi use</td>
+            <td>Liquidity provision (Curve, AMMs)</td>
+            <td>Hold to accrue yield; use as collateral</td>
+          </tr>
+          <tr>
+            <td>Price behaviour</td>
+            <td>Pegged to ETH (~1:1)</td>
+            <td>Appreciates vs ETH as rewards accrue</td>
+          </tr>
+          <tr class="hi">
+            <td>How to get</td>
+            <td>Deposit ETH on Frax app</td>
+            <td>Stake frxETH into sfrxETH vault</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Why sfrxETH APR is higher:</strong> Because frxETH deposited into Curve pools does not
+      earn staking yield, all validator rewards flow to sfrxETH holders only. The more frxETH stays
+      in liquidity pools (not staked), the higher the sfrxETH APR — a structural yield concentration
+      that distinguishes Frax from Lido's stETH.
+    </div>
+  </section>
+
+  <!-- FXS -->
+  <section class="card" id="fxs">
+    <h2>FXS Token: Utility, Tokenomics, and How Value Accrues to Holders</h2>
+    <p>
+      <strong>FXS</strong> is the governance and value-accrual token of the Frax Finance ecosystem.
+      It is designed to absorb the "seigniorage" — the economic surplus — generated by the protocol.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>FXS burned on FRAX minting</h3>
+        <p style="color:var(--muted)">When CR is below 100%, minting FRAX requires burning FXS. Higher FRAX demand = more FXS burned = deflationary pressure on supply. Redemptions mint FXS back.</p>
+        <div class="kpi-badges"><span>Burn mechanic</span><span>Supply-demand linked</span></div>
+      </div>
+      <div class="mini">
+        <h3>Protocol revenue distribution</h3>
+        <p style="color:var(--muted)">AMO yield, Fraxlend interest, and Fraxswap fees flow to the protocol. veFXS holders receive a share of this revenue — creating a direct link between protocol usage and FXS holder returns.</p>
+        <div class="kpi-badges"><span>Revenue share</span><span>veFXS required</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>FXS vs FRAX:</strong> FRAX is stable and designed for transactions and collateral.
+      FXS absorbs protocol volatility — it benefits when the protocol thrives and faces selling pressure
+      if FRAX demand declines. Never conflate the two in your risk assessment.
+    </div>
+  </section>
+
+  <!-- veFXS -->
+  <section class="card" id="vefxs">
+    <h2>veFXS: Vote-Escrow Staking, Yield Boosts, and Gauge Voting Explained</h2>
+    <p>
+      Locking FXS for a period of time (up to 4 years) gives you <strong>veFXS</strong> —
+      a non-transferable governance weight that decays linearly as your lock approaches expiry.
+      veFXS is central to Frax's incentive alignment model.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="veFXS mechanics">
+        <thead>
+          <tr><th>Lock duration</th><th>veFXS per FXS</th><th>Revenue share eligibility</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi"><td>1 year</td><td>0.25 veFXS</td><td class="ok">Yes</td></tr>
+          <tr><td>2 years</td><td>0.50 veFXS</td><td class="ok">Yes</td></tr>
+          <tr class="hi"><td>3 years</td><td>0.75 veFXS</td><td class="ok">Yes</td></tr>
+          <tr><td>4 years (max)</td><td>1.00 veFXS</td><td class="ok">Yes — maximum weight</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:1rem">
+      veFXS holders vote weekly on <strong>gauge weights</strong> — determining which Frax liquidity pools
+      receive the largest FXS emissions. This creates a "gauge war" dynamic where protocols and
+      liquidity providers compete for veFXS votes to direct FXS emissions to their pools.
+    </p>
+
+    <div class="note">
+      <strong>Liquidity boost:</strong> Providing liquidity in Frax gauge-eligible pools while holding veFXS
+      boosts your FXS farming rewards by up to 2.5×. This reward boost, combined with gauge voting,
+      is the primary reason large holders lock FXS for maximum duration.
+    </div>
+  </section>
+
+  <!-- FRAXLEND -->
+  <section class="card" id="fraxlend">
+    <h2>Fraxlend: Isolated Lending Markets — How Borrowing and Lending FRAX Works</h2>
+    <p>
+      <strong>Fraxlend</strong> is Frax's permissionless, isolated lending protocol. Unlike Aave or Compound
+      where all assets share a common risk pool, Fraxlend creates separate markets for each collateral/FRAX pair.
+      This isolation prevents a single bad asset from draining the entire protocol.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>For lenders</h3>
+        <p style="color:var(--muted)">Deposit FRAX into a Fraxlend pair to earn interest from borrowers. Each pair has its own interest rate curve and risk profile — choose pairs based on collateral quality and utilisation.</p>
+        <div class="kpi-badges"><span>FRAX interest</span><span>Isolated risk</span></div>
+      </div>
+      <div class="mini">
+        <h3>For borrowers</h3>
+        <p style="color:var(--muted)">Deposit collateral (e.g. WBTC, ETH, cvxLP) to borrow FRAX. Interest rates adjust dynamically with utilisation — rising sharply when a pair is near full utilisation to manage liquidity risk.</p>
+        <div class="kpi-badges"><span>Borrow FRAX</span><span>Dynamic rate</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Fraxlend's interest rate model:</strong> Fraxlend uses a variable-rate model that responds
+      aggressively to high utilisation — designed to prevent liquidity crunches by making borrowing
+      expensive before the pool runs dry. Monitor utilisation before depositing large amounts.
+    </div>
+  </section>
+
+  <!-- FRAXSWAP -->
+  <section class="card" id="fraxswap">
+    <h2>Fraxswap: Time-Weighted AMM for Large Order Execution</h2>
+    <p>
+      <strong>Fraxswap</strong> is Frax's native DEX built on a <strong>TWAMM (Time-Weighted Automated Market Maker)</strong>
+      design — specifically engineered to execute very large orders over time, minimising market impact.
+    </p>
+    <p>
+      Standard AMM swaps execute instantly, meaning large orders cause significant price impact and are
+      vulnerable to MEV. Fraxswap's TWAMM breaks a large order into infinitely small virtual sub-orders
+      executed continuously over a set time window — averaging the price and reducing both impact and
+      front-running exposure dramatically.
+    </p>
+
+    <div class="note">
+      <strong>Primary use case:</strong> Fraxswap is not optimised for typical retail swaps — it's designed
+      for protocol-level and large-scale treasury operations where a protocol needs to buy or sell
+      a large quantity of tokens without crashing the market. The Frax protocol itself uses Fraxswap
+      for its own collateral management operations.
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="card" id="safety">
+    <h2>Frax Finance Risks: Depeg Scenarios, Smart-Contract Risks, and AMO Exposure</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Risk analysis">
+        <thead>
+          <tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>FRAX depeg event</td>
+            <td class="warn">Medium</td>
+            <td>CR acts as a dynamic buffer; v3 moves toward full collateralisation</td>
+          </tr>
+          <tr>
+            <td>AMO strategy loss</td>
+            <td class="warn">Medium</td>
+            <td>AMOs constrained to stay within CR bounds; cannot over-deploy</td>
+          </tr>
+          <tr class="hi">
+            <td>Smart-contract exploit</td>
+            <td class="warn">Medium-High</td>
+            <td>Multiple audits; large bug bounty; battle-tested contracts</td>
+          </tr>
+          <tr>
+            <td>FXS price collapse</td>
+            <td class="warn">Medium</td>
+            <td>v3 moves toward 100% CR, reducing algorithmic FXS dependency</td>
+          </tr>
+          <tr class="hi">
+            <td>frxETH validator slashing</td>
+            <td class="ok">Low</td>
+            <td>Frax runs professional validator infrastructure; diversified operator set</td>
+          </tr>
+          <tr>
+            <td>Fraxlend bad debt</td>
+            <td class="warn">Low-Medium</td>
+            <td>Isolated pairs limit contagion; each pair's risk is contained</td>
+          </tr>
+          <tr class="hi">
+            <td>Phishing / fake Frax UI</td>
+            <td class="err">High (user-controlled)</td>
+            <td>Bookmark official URL; verify domain before every wallet connection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      <strong>FRAX vs UST distinction:</strong> Frax is often compared to Terra's failed UST. The key difference:
+      FRAX is backed by real collateral (USDC) — the FXS component is partial and bounded by the CR.
+      UST was entirely unbacked algorithmic. Frax's v3 move toward 100% CR increases this distinction further.
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="card" id="comparison">
+    <h2>Frax vs MakerDAO vs Liquity vs Lido: Choosing the Right Protocol</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Protocol comparison">
+        <thead>
+          <tr><th>Dimension</th><th>Frax (FRAX)</th><th>MakerDAO (DAI)</th><th>Liquity (LUSD)</th><th>Lido (stETH)</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Stablecoin model</td>
+            <td>Fractional-algo (→ full CR)</td>
+            <td>Over-collateralised CDP</td>
+            <td>Over-collateralised, ETH-only</td>
+            <td>N/A (liquid staking)</td>
+          </tr>
+          <tr>
+            <td>ETH liquid staking</td>
+            <td class="ok">sfrxETH (high yield)</td>
+            <td class="err">No</td>
+            <td class="err">No</td>
+            <td class="ok">stETH (largest TVL)</td>
+          </tr>
+          <tr class="hi">
+            <td>Governance token utility</td>
+            <td class="ok">FXS / veFXS (revenue share)</td>
+            <td class="warn">MKR (buyback)</td>
+            <td class="warn">LQTY (fee staking)</td>
+            <td class="warn">LDO (governance only)</td>
+          </tr>
+          <tr>
+            <td>Lending protocol</td>
+            <td class="ok">Fraxlend (isolated)</td>
+            <td class="ok">Maker vaults</td>
+            <td class="warn">Limited</td>
+            <td class="err">No</td>
+          </tr>
+          <tr class="hi">
+            <td>Complexity</td>
+            <td class="warn">High</td>
+            <td class="warn">Medium-High</td>
+            <td class="ok">Low (minimalist)</td>
+            <td class="ok">Low</td>
+          </tr>
+          <tr>
+            <td>Smart-contract risk</td>
+            <td class="warn">Medium-High (multi-product)</td>
+            <td class="warn">Medium</td>
+            <td class="ok">Low (immutable)</td>
+            <td class="warn">Medium</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BEST PRACTICES -->
+  <section class="card" id="best-practices">
+    <h2>Best Practices for Using Frax Finance Safely and Effectively</h2>
+    <ul style="padding-left:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Bookmark the official Frax app URL</strong> — do not use social media links or search ads to navigate to Frax. Phishing sites mimic DeFi UIs convincingly.</li>
+      <li style="margin-bottom:.5rem"><strong>Understand what you hold:</strong> frxETH ≠ sfrxETH ≠ FRAX ≠ FXS. Each has a different risk profile, yield mechanics, and liquidity profile. Confusing them is a common and costly mistake.</li>
+      <li style="margin-bottom:.5rem"><strong>Before locking FXS as veFXS</strong> — locks are irreversible until expiry. The maximum 4-year lock maximises voting power but means complete illiquidity for that period. Size appropriately.</li>
+      <li style="margin-bottom:.5rem"><strong>Monitor Fraxlend utilisation</strong> before depositing — high utilisation increases interest rate volatility and reduces withdrawal liquidity for lenders.</li>
+      <li style="margin-bottom:.5rem"><strong>Track the FRAX collateral ratio</strong> — a falling CR is a protocol stress signal. Monitor it via the official Frax dashboard, not third-party sites.</li>
+      <li style="margin-bottom:.5rem"><strong>Revoke stale token approvals</strong> after interactions via Revoke.cash — Frax's multi-contract architecture means more approval surface than simpler protocols.</li>
+      <li><strong>Use a hardware wallet</strong> for significant positions — Frax's complexity means more smart-contract interactions, each of which is a signing risk for software wallets.</li>
+    </ul>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="card" id="troubleshooting">
+    <h2>Troubleshooting Frax Finance: Depeg Concerns, sfrxETH Yield, and veFXS Issues</h2>
+
+    <h3>"FRAX is trading slightly below $1 — should I be worried?"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>Minor deviations (0.1–0.3%) are normal for any stablecoin and typically resolve via arbitrage within hours. The protocol's CR mechanism automatically responds to sustained depeg pressure.</li>
+      <li>For significant deviations (&gt;1%), monitor the official Frax dashboard, governance forums, and the CR in real time before taking action.</li>
+      <li>Check whether the deviation is isolated to one DEX pool or widespread across multiple venues — pool-specific depeg is usually a liquidity issue, not a protocol issue.</li>
+    </ul>
+
+    <h3>"My sfrxETH APR seems lower than expected"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>sfrxETH APR is variable — it depends on the proportion of frxETH that's staked vs in liquidity pools. If more frxETH moves from pools to staking, APR dilutes across more sfrxETH holders.</li>
+      <li>Network-wide ETH staking yields affect the underlying consensus rewards flowing to Frax validators.</li>
+      <li>Compare against the official Frax dashboard's current quoted APR, not aggregator figures which may be stale.</li>
+    </ul>
+
+    <h3>"I can't unlock my veFXS early"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>veFXS locks are intentionally irreversible until the lock expires — this is by design, not a bug. There is no early exit mechanism for standard veFXS locks.</li>
+      <li>Some third-party protocols may offer veFXS liquid wrappers — research these carefully as they add smart-contract and liquidity risks on top of the base FXS position.</li>
+    </ul>
+
+    <div class="note">
+      <strong>Always check official sources first:</strong> Frax's governance forum and official Discord
+      are the best places to verify whether a perceived issue is a known protocol condition
+      or a genuine problem requiring action. Never act on social media rumours alone.
+    </div>
+  </section>
+
+  <!-- EEAT -->
+  <section class="eeat" id="eeat" aria-labelledby="eeat-title">
+    <h2 id="eeat-title">Frax Finance: Authoritative References &amp; External Sources</h2>
+
+    <h3>Frax Finance — Official Sources</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://frax.finance/" target="_blank" rel="noopener nofollow">Frax Finance — Official Website</a></li>
+      <li><a href="https://docs.frax.finance/" target="_blank" rel="noopener nofollow">Frax Finance — Official Documentation</a></li>
+      <li><a href="https://github.com/FraxFinance" target="_blank" rel="noopener nofollow">Frax Finance — Smart Contracts (GitHub)</a></li>
+      <li><a href="https://gov.frax.finance/" target="_blank" rel="noopener nofollow">Frax Governance Forum</a></li>
+    </ul>
+
+    <h3>On-chain Data &amp; Analytics</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://defillama.com/protocol/frax-finance" target="_blank" rel="noopener nofollow">DeFiLlama — Frax Finance TVL &amp; Protocol Data</a></li>
+      <li><a href="https://dune.com/browse/dashboards" target="_blank" rel="noopener nofollow">Dune Analytics — Frax On-chain Dashboards</a></li>
+      <li><a href="https://curve.fi/" target="_blank" rel="noopener nofollow">Curve Finance — FRAX/3CRV Pool Data</a></li>
+    </ul>
+
+    <h3>Stablecoin &amp; DeFi Research</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://ethereum.org/en/stablecoins/" target="_blank" rel="noopener nofollow">Ethereum.org — Stablecoins Overview</a></li>
+      <li><a href="https://blog.chainalysis.com/" target="_blank" rel="noopener nofollow">Chainalysis — DeFi &amp; Stablecoin Research</a></li>
+      <li><a href="https://rekt.news/" target="_blank" rel="noopener nofollow">Rekt.news — DeFi Exploit Post-Mortems</a></li>
+    </ul>
+
+    <h3>Security</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://revoke.cash/" target="_blank" rel="noopener nofollow">Revoke.cash — Token Approval Manager</a></li>
+      <li><a href="https://blog.openzeppelin.com/security-audits" target="_blank" rel="noopener nofollow">OpenZeppelin — Smart Contract Security Audits</a></li>
+    </ul>
+
+    <div class="note" style="margin-top:1.2rem">
+      <strong>About:</strong> Prepared by Crypto Finance Experts as a practical, SEO-oriented knowledge base for
+      <em>Frax Finance</em>: FRAX stablecoin, AMO system, frxETH/sfrxETH, FXS, veFXS, Fraxlend, Fraxswap, risks, and troubleshooting.
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" style="margin-top:0;border-top:none;padding-top:0">Frax Finance: Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f1" id="b1">
+        <h3>What is Frax Finance and how is FRAX different from other stablecoins?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f1" class="faq-content" role="region" aria-labelledby="b1">
+        <p>Frax Finance is a multi-product DeFi protocol centred on FRAX — the first fractional-algorithmic stablecoin. Unlike fully collateralised stablecoins (USDC, DAI) that require $1+ of collateral per FRAX, or fully algorithmic stablecoins (like the failed UST) that rely entirely on algorithms, FRAX uses a hybrid model: part USDC collateral, part FXS governance token burned at mint. The ratio adjusts dynamically based on market conditions via the Collateral Ratio mechanism.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f2" id="b2">
+        <h3>What is the difference between frxETH and sfrxETH?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f2" class="faq-content" role="region" aria-labelledby="b2">
+        <p>frxETH is a liquid representation of staked ETH — it tracks ETH 1:1 but does not accrue staking yield by itself. sfrxETH is the yield-bearing vault token you receive when you stake frxETH. All ETH staking rewards generated by Frax validators flow to sfrxETH holders only — frxETH holders in liquidity pools don't share in them. This concentrates yield into sfrxETH, giving it a structurally higher APR than stETH or rETH.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f3" id="b3">
+        <h3>What is veFXS and why would I lock FXS?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f3" class="faq-content" role="region" aria-labelledby="b3">
+        <p>veFXS is the vote-escrow form of FXS obtained by locking FXS for up to 4 years. Holding veFXS gives you: a share of protocol revenue (from AMOs, Fraxlend, Fraxswap), up to 2.5× boost on FXS liquidity mining rewards, and voting power over gauge weights (which pools receive FXS emissions). The longer you lock, the more veFXS you receive — but the lock is irreversible until expiry.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f4" id="b4">
+        <h3>Is FRAX safe — could it depeg like UST?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f4" class="faq-content" role="region" aria-labelledby="b4">
+        <p>FRAX is fundamentally different from UST. UST was entirely backed by LUNA with no real collateral — when confidence collapsed, there was nothing to redeem against. FRAX is backed by real USDC collateral at the current CR. Frax v3 governance has been moving toward a 100% CR, effectively making FRAX fully collateralised. While FRAX depeg risk is not zero, it is not the same mechanism as UST's death spiral. Monitor the CR and AMO health for signals.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f5" id="b5">
+        <h3>How does Fraxlend differ from Aave or Compound?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f5" class="faq-content" role="region" aria-labelledby="b5">
+        <p>Fraxlend uses isolated lending pairs — each collateral/FRAX market is completely separate. A bad debt event in one pair cannot drain other pairs. Aave and Compound use shared pools where all collateral types interact, meaning a bad actor exploiting one asset can affect the whole protocol. Fraxlend's isolation model is more conservative but means each pair's interest rate and liquidity is independent.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f6" id="b6">
+        <h3>What are Frax AMOs and are they risky?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f6" class="faq-content" role="region" aria-labelledby="b6">
+        <p>AMOs (Algorithmic Market Operations) are smart contracts that deploy Frax's collateral reserves into yield strategies (Curve pools, lending protocols) to generate revenue. They are bounded by protocol constraints — they cannot deploy collateral in a way that would make FRAX unredeemable. The risk is not zero (smart-contract bugs, strategy losses), but AMOs are significantly constrained compared to unconstrained yield strategies.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f7" id="b7">
+        <h3>What is Fraxswap and who should use it?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f7" class="faq-content" role="region" aria-labelledby="b7">
+        <p>Fraxswap is a TWAMM (Time-Weighted Automated Market Maker) DEX built for large order execution over time. It's not designed for typical small retail swaps — it excels at protocol-level or treasury-level trades where a large quantity of tokens needs to be bought or sold without causing significant market impact. The Frax protocol itself uses Fraxswap for its own collateral management operations.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f8" id="b8">
+        <h3>Can I use sfrxETH as collateral in DeFi?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f8" class="faq-content" role="region" aria-labelledby="b8">
+        <p>Yes — sfrxETH is accepted as collateral in several DeFi lending protocols including Fraxlend itself, and has been integrated into other major protocols. Using sfrxETH as collateral lets you earn ETH staking yield while simultaneously borrowing against your position. This carries liquidation risk if ETH price drops significantly relative to your borrowed amount — manage your LTV conservatively.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f9" id="b9">
+        <h3>How do I exit my FRAX position safely?</h3>
+        <span class="faq-plus">+</span>
+      </button>
+      <div id="f9" class="faq-content" role="region" aria-labelledby="b9">
+        <p>FRAX can be redeemed directly on the Frax app for $1 of collateral (at the current CR), or swapped for USDC/DAI on DEXs like Curve. Redemption via the official app gives you the most reliable $1 exit. For large positions, direct redemption avoids slippage on DEX swaps. Always check the current CR before redeeming — at 100% CR you receive $1 USDC per FRAX; at lower CRs you receive a mix of USDC and FXS.</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="container" role="contentinfo" style="padding:2.5rem 0; border-top:1px solid var(--line); margin-top:2rem">
+  <p style="color:var(--dim); font-size:.93rem">© 2026 Frax Finance Guide. Educational content with a security-first operational focus. Not financial advice.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-button').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const c = document.getElementById(b.getAttribute('aria-controls'));
+        c.classList.remove('open'); c.style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        const content = document.getElementById(btn.getAttribute('aria-controls'));
+        content.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
